@@ -1,34 +1,16 @@
-import numpy as np
 import joblib
-
-# Load the saved model
-model = joblib.load('iris_model.joblib')
+import numpy as np
 
 
-# Function to predict the class of a new input
-def predict_iris_class(sepal_length, sepal_width, petal_length, petal_width):
-    # Prepare the input data
-    X_new = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+def make_predictions(model_filename):
+    # Load the trained model from the joblib file
+    model = joblib.load(model_filename)
 
-    # Predict the class
-    prediction = model.predict(X_new)
+    # Example test data (You can replace this with new input data)
+    test_data = np.array([[5.1, 3.5, 1.4, 0.2],  # Example Iris Setosa sample
+                          [6.7, 3.1, 4.4, 1.4]])  # Example Iris Versicolor sample
 
-    # Return the predicted class
-    return prediction[0]
+    # Make predictions using the trained model
+    predictions = model.predict(test_data)
 
-
-# CLI to get input from the user
-if __name__ == "__main__":
-    print("Iris Flower Prediction")
-
-    # Take user inputs
-    sepal_length = float(input("Enter Sepal Length (cm): "))
-    sepal_width = float(input("Enter Sepal Width (cm): "))
-    petal_length = float(input("Enter Petal Length (cm): "))
-    petal_width = float(input("Enter Petal Width (cm): "))
-
-    # Make prediction
-    predicted_class = predict_iris_class(sepal_length, sepal_width, petal_length, petal_width)
-
-    # Display the prediction
-    print(f"The predicted class for the given Iris flower is: {predicted_class}")
+    return predictions
